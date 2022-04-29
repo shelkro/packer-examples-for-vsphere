@@ -13,7 +13,9 @@ variable "vsphere_username" {
 }
 
 variable "vsphere_password" {
-  type = string
+  type      = string
+  nullable  = false
+  sensitive = true
 }
 
 variable "vsphere_insecure" {

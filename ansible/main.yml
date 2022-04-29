@@ -6,7 +6,7 @@
   gather_facts: "yes"
   hosts: all
   roles:
-    - base
+#    - base
     - users
     - configure
     - clean

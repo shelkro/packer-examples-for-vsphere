@@ -187,6 +187,7 @@ autoinstall:
   packages:
     - openssh-server
     - open-vm-tools
+    - perl
     - cloud-init
   user-data:
     disable_root: false

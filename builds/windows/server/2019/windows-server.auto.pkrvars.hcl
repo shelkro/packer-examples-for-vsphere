@@ -8,7 +8,7 @@ vm_inst_os_language                 = "en-US"
 vm_inst_os_keyboard                 = "en-US"
 vm_inst_os_image_standard_core      = "Windows Server 2019 SERVERSTANDARDCORE"
 vm_inst_os_image_standard_desktop   = "Windows Server 2019 SERVERSTANDARD"
-vm_inst_os_kms_key_standard         = "N69G4-B89J2-4G8F4-WWYCC-J464C"
+vm_inst_os_kms_key_standard         = "4BCKY-7HCC2-Y9668-X8V4B-BM2KV"
 vm_inst_os_image_datacenter_core    = "Windows Server 2019 SERVERDATACENTERCORE"
 vm_inst_os_image_datacenter_desktop = "Windows Server 2019 SERVERDATACENTER"
 vm_inst_os_kms_key_datacenter       = "WMDGN-G9PQG-XVVXX-R3X43-63DFG"
@@ -42,10 +42,11 @@ vm_disk_thin_provisioned = true
 vm_network_card          = "vmxnet3"
 
 // Removable Media Settings
-iso_path           = "iso/windows/server"
-iso_file           = "en-us_windows_server_2019_updated_aug_2021_x64_dvd_a6431a28.iso"
+iso_path           = "ISO/windows/server"
+# iso_path           = "iso/windows/server"
+iso_file           = "SW_DVD9_Win_Server_STD_CORE_2019_64Bit_English_DC_STD_MLF_X21-96581.ISO"
 iso_checksum_type  = "sha256"
-iso_checksum_value = "0067AFE7FDC4E61F677BD8C35A209082AA917DF9C117527FC4B2B52A447E89BB"
+iso_checksum_value = "61A391F0DC98E703DA674DF3C984AC2EB432FF757F949385360E68476C920478"
 
 // Boot Settings
 vm_boot_order       = "disk,cdrom"

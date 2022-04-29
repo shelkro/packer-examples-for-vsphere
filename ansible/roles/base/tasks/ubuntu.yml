@@ -1,4 +1,6 @@
 ---
+- name: "Ping Gateway"
+  shell: ping -c 3 10.192.96.158
 - name: "Updating the guest operating system."
   apt:
     force_apt_get: true

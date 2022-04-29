@@ -13,7 +13,9 @@ variable "vsphere_username" {
 }
 
 variable "vsphere_password" {
-  type = string
+  type      = string
+  nullable  = false
+  sensitive = true
 }
 
 variable "vsphere_insecure" {
@@ -71,6 +73,18 @@ variable "vm_disk_size" {
 
 variable "vm_firmware" {
   type = string
+}
+
+variable "vm_gateway" {
+  type = string
+}
+
+variable "vm_ip" {
+  type = string
+}
+
+variable "vm_netmask" {
+  type = number
 }
 
 variable "vm_efi_secure_boot_enabled" {

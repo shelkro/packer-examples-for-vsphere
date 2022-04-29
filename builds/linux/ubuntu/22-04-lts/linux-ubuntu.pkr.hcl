@@ -58,7 +58,7 @@ source "vsphere-iso" "linux-ubuntu" {
 
   // Virtual Machine Settings
   guest_os_type        = var.vm_guest_os_type
-  vm_name              = "${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-v${local.build_version}"
+  vm_name              = "Lightedge-${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-v${local.build_version}"
   firmware             = var.vm_firmware
   CPUs                 = var.vm_cpu_sockets
   cpu_cores            = var.vm_cpu_cores
@@ -87,6 +87,11 @@ source "vsphere-iso" "linux-ubuntu" {
   cd_content   = var.common_data_source == "disk" ? local.data_source_content : null
   cd_label     = var.common_data_source == "disk" ? "cidata" : null
 
+  //cd_files = [
+  //  "./data/meta-data",
+  //  "./data/user-data"
+ // ]
+
   // Boot and Provisioning Settings
   http_ip       = var.common_data_source == "http" ? var.common_http_ip : null
   http_port_min = var.common_data_source == "http" ? var.common_http_port_min : null
@@ -95,7 +100,8 @@ source "vsphere-iso" "linux-ubuntu" {
   boot_wait     = var.vm_boot_wait
   boot_command = [
     "c<wait>",
-    "linux /casper/vmlinuz --- autoinstall ${local.data_source_command}",
+    "linux /casper/vmlinuz --- ip=192.168.223.101::192.168.223.254:255.255.255.0::::8.8.8.8 autoinstall ds=nocloud;seedfrom=/cidata/",
+    # "linux /casper/vmlinuz --- ip=10.192.96.135::10.192.96.158:255.255.255.224::::10.195.254.18 autoinstall ds=nocloud;seedfrom=/cidata/",
     "<enter><wait>",
     "initrd /casper/initrd",
     "<enter><wait>",
@@ -135,6 +141,24 @@ source "vsphere-iso" "linux-ubuntu" {
 //  Defines the builders to run, provisioners, and post-processors.
 
 build {
+  hcp_packer_registry {
+    bucket_name = "Lightedge-VMware-Ubuntu-2204"
+    description = <<EOT
+Lightedge VMware Virtual Machine Ubuntu Images.
+    EOT
+    bucket_labels = {
+      "owner"          = "platform-team"
+      "OS"             = "Ubuntu",
+      "OS-version" = "Jammy 22.04",
+    }
+
+    build_labels = {
+      "build-time"   = timestamp()
+      "build-source" = basename(path.cwd),
+      "Lightedge notes" = "Install perl, VM uses EFI Firmware",
+    }
+  }
+
   sources = ["source.vsphere-iso.linux-ubuntu"]
 
   provisioner "ansible" {

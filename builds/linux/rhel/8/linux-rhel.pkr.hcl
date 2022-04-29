@@ -59,7 +59,7 @@ source "vsphere-iso" "linux-rhel" {
 
   // Virtual Machine Settings
   guest_os_type        = var.vm_guest_os_type
-  vm_name              = "${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-v${local.build_version}"
+  vm_name              = "Lightedge-${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}-v${local.build_version}"
   firmware             = var.vm_firmware
   CPUs                 = var.vm_cpu_sockets
   cpu_cores            = var.vm_cpu_cores
@@ -97,7 +97,7 @@ source "vsphere-iso" "linux-rhel" {
     "<up>",
     "e",
     "<down><down><end><wait>",
-    "text ${local.data_source_command}",
+    "text ${local.data_source_command} ip=10.192.96.136 netmask=255.255.255.224 gateway=10.192.96.158 nameserver=10.195.254.18",
     "<enter><wait><leftCtrlOn>x<leftCtrlOff>"
   ]
   ip_wait_timeout  = var.common_ip_wait_timeout
@@ -133,6 +133,24 @@ source "vsphere-iso" "linux-rhel" {
 //  Defines the builders to run, provisioners, and post-processors.
 
 build {
+    hcp_packer_registry {
+    bucket_name = "Lightedge-VMware-RHEL-8"
+    description = <<EOT
+Lightedge VMware Virtual Machine RedHat Images.
+    EOT
+    bucket_labels = {
+      "owner"          = "platform-team"
+      "OS"             = "RHEL",
+      "OS-version" = "8.5",
+    }
+
+    build_labels = {
+      "build-time"   = timestamp()
+      "build-source" = basename(path.cwd),
+      "Lightedge packages" = "Python3",
+    }
+  }
+
   sources = ["source.vsphere-iso.linux-rhel"]
 
   provisioner "ansible" {

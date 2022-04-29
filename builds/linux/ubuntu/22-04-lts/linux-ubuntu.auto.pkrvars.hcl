@@ -16,6 +16,7 @@ vm_guest_os_type = "ubuntu64Guest"
 
 // Virtual Machine Hardware Settings
 vm_firmware              = "efi-secure"
+# vm_firmware              = "bios"
 vm_cdrom_type            = "sata"
 vm_cpu_sockets           = 2
 vm_cpu_cores             = 1
@@ -28,7 +29,8 @@ vm_disk_thin_provisioned = true
 vm_network_card          = "vmxnet3"
 
 // Removable Media Settings
-iso_path           = "iso/linux/ubuntu"
+iso_path           = "ISO/linux/ubuntu"
+# iso_path           = "iso/linux/ubuntu"
 iso_file           = "ubuntu-22.04-live-server-amd64.iso"
 iso_checksum_type  = "sha256"
 iso_checksum_value = "84aeaf7823c8c61baa0ae862d0a06b03409394800000b3235854a6b38eb4856f"
